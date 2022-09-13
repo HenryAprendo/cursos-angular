@@ -1,0 +1,128 @@
+Componentes y servicios
+
+* Crear componentes
+	ng g c ng new <project-name>	(g: generate c:component project-name nombre del componente)
+
+* Inicio del proyecto.
+	ng new my-store-online
+
+* ng g c components/img o ng generate component <component-name>
+El resultado seria un nuevo componente, con sus archivos:
+
+Global setting: enabled
+Local setting: enabled
+Effective status: enabled
+CREATE src/app/components/img/img.component.scss (0 bytes)
+CREATE src/app/components/img/img.component.html (18 bytes)
+CREATE src/app/components/img/img.component.spec.ts (578 bytes)
+CREATE src/app/components/img/img.component.ts (264 bytes)
+UPDATE src/app/app.module.ts (474 bytes)
+
+* 
+@Component({
+  selector: 'app-img',
+  templateUrl: './img.component.html',
+  styleUrls: ['./img.component.scss']
+})
+
+Esta configuración es conocida en angular como un decorador y es el encargado de darle un comportamiento al componente.
+Enlaza la clase controladora con la vista html del proyecto a través de sus propiedades.
+
+La propiedad selector: 'app-img', es la que utilizamos para llamar a este componente desde el componente principal o padre app.component.html de la siguiente manera.
+
+	<app-img></app-img> es decir como un tag
+
+De esta forma renderizamos el contenido del app-img en el componente app-root.
+
+* @Input Utilizado para pasar información a una variable de un componente padre hacia un componente hijo.
+
+* gn-template 
+
+<img width="200" [src]="img" *ngIf="img; else elseImg ">
+
+<ng-template #elseImg>
+  <img src="/src/assets/default.png" >
+</ng-template
+
+
+
+* Comunicación hijo a padre   @Output
+A partir de la emisión de un evento, el decorador @Output() permite enviar mensajes desde un componente hijo hacia el padre.
+
+@Output() loaded = new EventEmitter<string>();
+
+Funcionamiento.
+utilizamos un decorador del tipo @Output para indicar que sera enviado a un componente externo. 
+Creamos una instacia de EventEmitter, que nos permitira emitir un evento y enviar un tipo de dato. En este caso <loaded> es el nombre del evento que tendra esta instancia. 
+Ahora en loaded tendremos acceso a loaded.emit(data) que se ejecutara en el método que necesitamos.
+metodo(){
+	loaded.emit('url');
+}
+
+Este evento loaded lo podremos recibir dentro del componente root que este renderizando nuestro componente secundario. Solo en la tag del componente hijo que este insertada en el padre, recibiremos este evento de la forma normal para ejecutar un método en el componente padre:
+
+<app-roop>
+	<h1>Componente padre</h1>
+	<app-img (loaded)="onLoaded($event)"></app-img>
+</app-roop>
+
+EventEmitter, Output, Input deben ser importados desde el core de angular para poder usarlas.
+
+
+* Ciclo de vida de componentes y directivas.
+
+Para analizar el ciclo de vida es neceserio implementar diversas interfaces que nos van a permitir escuchar eventos con sus diversos métodos.
+Los eventos mas importantes que suceden durante todo el ciclo de vida son los siguientes: 
+
+1. Lo primero que se ejecuta es el constructor del componente.
+Y solo se ejecuta una vez para crear la instancia del componente, lo hace antes de renderizar.
+No es recomendable colocar ningun tipo de peticiones asincronas, sino que tengamos o asignemos la respuesta de forma inmediata.
+
+2. ngOnChanges(){}
+Se ejecuta antes del renderizado, pero tambien durante todo el ciclo de vida.
+Su objetivo es actualizar los cambios en los inputs	o detectar un cambio en ellos.
+
+3.ngOnInit(){}
+Se ejecuta antes del renderizado (antes de que angular aliste el componente).
+Solo se ejecuta una sola vez y es el lugar perfecto para realizar operaciones
+asincronas como peticiones con fetch, llamadas a API.
+
+4. ngAfterViewInit(){}
+Se ejecuta despues del renderizado y es muy util para el manejo de atributos de los componentes hijos.
+
+5. ngOnDestroy(){}
+Es un disparador nos permite saber cuando se elimina un componente, por ejemplo cuando un *ngIf crea un componente, y cuando lo quitamos lo remueve de la interfaz.
+
+6.ngOnDestroy 
+En ocasiones es necesario limpiar la memoria o ciertos funcionamientos que quedan aun despues de haber eliminado el componente o que este se haya dejado de renderizar.
+Lo hacemos aqui en el método de enlace ngOnDestroy. Como por ejemplo al utilizar setInterval como un contador, sino lo detenemos a la hora de eliminar el componente al cual pertenece, setInterval seguira funcionando.
+
+7.SetInput
+
+antecedente.
+El método ngOnChange puede recibir un parametro del tipo SimpleChanges
+	ngOnChange(change: SimpleChanges){ "Escucha todos los input" }
+De esta forma ngOnchange estaria escuchando todos los inputs que estén en  nuestro componente, se ejecutaria en cada cambio. Este funcionamiento tiene sus ventajas, pero en el caso de que solo necesitaramos detectar el cambio en un input especifico no nos ayudaria, a menos que evualaramos por medio de if.
+
+Para este caso en particular podemos implementar otra solución y es SetInput.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

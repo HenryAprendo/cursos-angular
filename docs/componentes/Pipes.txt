@@ -1,0 +1,92 @@
+			* PIPES (tuberias input - process - output)
+* ¿Qué es un pipe?
+	Los pipes son una herramienta de Angular que nos permite transformar 	visualmente la información, por ejemplo, cambiar un texto a mayúsculas o 	minúsculas, o darle formato de fecha y hora.
+
+* Generando un pipe
+	ng g p pipes/reverse
+	 
+	Como resultado tenemos los siguientes archivos:	
+ 
+	CREATE src/app/pipes/reverse.pipe.spec.ts (191 bytes)
+	CREATE src/app/pipes/reverse.pipe.ts (219 bytes)
+	UPDATE src/app/app.module.ts (964 bytes)
+
+
+* El archivo reverse.pipe.ts es una clase con un decorador @pipe que implementa la interface PipeTransform, el cual contiene un método prototipado transform en donde desarrollaremos la lógica de nuestro pipe.
+
+	import { Pipe, PipeTransform } from '@angular/core';
+
+	@Pipe({
+  		name: 'reverse'
+	})
+	export class ReversePipe implements PipeTransform {
+
+  	transform(value: unknown, ...args: unknown[]): unknown {
+    		return null;
+  	}
+
+	}
+
+* Los pipes solo se pueden usar dentro de la plantilla html del componente
+
+	Ejemplos:
+
+	<p>Today: {{ today | date:'short' }}</p>
+
+	<p>Other date: {{ date | date: 'yyyy.dd.MM' }}</p>
+
+	<p>{{'uppercase' | uppercase}}</p>
+
+	<p>{{ 'invertir orden de un string' | reverse }}</p>
+
+	<h2>{{ product.price | currency:'COP'}}</h2>
+
+
+* Comparador de fechas con la libreria date-fns
+	
+	1.Instalamos la libreria date-fns.
+		npm i date-fns
+
+	2.Creamos el pipe
+		ng g p pipes/timeAgo
+
+	3.En el archivo src/app/pipes/time-ago.pipe.ts importamos la libreria 	date-fns.
+
+		import { formatDistance } from 'date-fns';
+
+	4. Y dentro del método transform implementamos: 
+
+	
+	@Pipe({
+  		name: 'time-ago'
+	})
+	export class TimeAgoPipe implements PipeTransform {
+
+  	transform(value: Date): string {
+    		return formatDistance(new Date(), value);
+  	}
+
+	}
+
+
+	5. Usamos el pipe una plantilla
+
+		<p>Today: {{ today | timeAgo }}</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

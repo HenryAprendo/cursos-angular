@@ -1,0 +1,28 @@
+1. Instalación de angular cli
+
+	sudo npm i -g @angular/cli 
+
+2. version 
+
+	ng version
+
+3. Creación de una aplicación o proyecto
+
+	ng new my-store
+
+4. Generando un servidor para el proyecto
+
+	ng serve
+
+	ng serve -o (abre directamente el navegador)
+
+5. cambiando el puerto del servidor
+
+	ng serve -o --port=3500
+
+6. Al estar en proyecto, podemos ver la construcción y dependencias del proyecto
+
+	ng version
+
+7. Se recomienda agregar al proyecto un archivo .nvmrc para indicar la versión de node donde corre nuestro proyecto y que sirva a otros desarrolladores
+

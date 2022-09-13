@@ -1,0 +1,16 @@
+
+<a [routerLink]="['/product', product.id]" >
+  <app-img *ngIf="product.images.length > 0 " [img]="product.images[0]"></app-img>
+</a>
+<h2>{{ product.price | currency:'COP'}}</h2>
+<p>{{ product.title }}</p>
+<p *ngIf="product.taxes">{{ product.taxes | currency:'COP'}}</p>
+<!-- <p appHighlight >{{ product.description }}</p> -->
+<!-- <button (click)="onShowDetail()">Ver detalle</button> -->
+<a routerLink="." [queryParams]="{ product: product.id }">Ver detalle</a>
+<button (click)="onAddToCar()">Add cart</button>
+
+
+<!-- routerLink="." lo que hace es agregar a la ruta el queryParams product
+y que no nos saque de la ruta actual, en este caso que vaya de category a home.
+routerLink="/home" me enviaria siempre a home, aun desde category y no queremos asi-->

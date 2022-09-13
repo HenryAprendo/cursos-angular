@@ -1,0 +1,68 @@
+	AUTENTICACIÓN DE USUARIOS.
+
+* PROCESO.
+
+1.Login y manejo de auth.
+
+Trataremos como hacemos un login con una api y como esta mantiene nuestra sesión.
+Utilizaremos el sistema JWT que es un tipo de autentificación.
+
+	YourApp --- /login ----> Backend
+ 
+La forma de loguearnos es por el endpoint login. Es aqui donde enviamos nuestro usuario y password, una vez lo hagamos el backend nos devuelve un token.
+
+	YourApp <------jwt------ Backend
+
+jwt json web token
+
+Lo siguiente es almacenar el token, y utilizarlo para hacer alguna petición protegida como por ejemplo obtener el profile (perfil). Sino lo enviamos el backend enviara una notificación de que no podremos entrar porque se necesita un token de autorización.
+
+
+Users
+get /api/users
+post /api/users
+
+auth
+post /api/auth/login
+get /api/auth/profile
+
+
+* Proceso de login
+	http.post(https://young-sands-07814.herokuapp.com/api/auth/login,	{
+		"email": "john@mail.com",
+		"password": "changeme"
+	})
+
+respuesta jwt token:
+
+{
+	"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AbWFpbC5jb20iLCJzdWIiOjEsImlhdCI6MTY1OTcxMDA4OSwiZXhwIjoxNjU5NzEzNjg5fQ.Rr97HoyWKKKxeOx98MF_Ct8WU5ZggBmC_0jHcHkHG2E"
+}	
+
+Esta token sera util para que el backend sepa que el usuario tiene una sesión.
+
+Si hay error de autenticación por clave erronea puede salir:
+
+{
+	"statusCode": 401,
+	"message": "Unauthorized"
+}
+
+* Ya con el access_token hago la solicitud del profile
+http.get(https://young-sands-07814.herokuapp.com/api/auth/profile, token)
+
+La respuesta seria el perfil del usuario:
+
+{
+	"id": 1,
+	"email": "john@mail.com",
+	"password": "changeme",
+	"name": "Jhon"
+}
+
+
+
+
+
+
+

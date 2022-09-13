@@ -1,0 +1,20 @@
+* Servicios.
+Los servicios nos ayudan a que nuestra aplicación tenga una estructura modular y ademas separan la lógica de negocio como manipulación de datos, servicios de código que no tienen nada que ver con la UI , del tal forma que el componente solo tenga la responsabilidad de renderizar y el servicio de comunicar el código en métodos que se pueden usar en los componentes mediante la inyección de servicios.
+
+* Generando un servicio en la terminal
+	ng g s services/store
+
+	Esto me genera un servicio con dos archivos, uno para testing y otro para 
+	la lógica de negocios.
+
+* Estructura de un services
+
+	import { Injectable } from '@angular/core';
+	@Injectable({
+	  	providedIn: 'root'	
+	})
+	export class StoreService {
+
+  	constructor() { }
+	}
+

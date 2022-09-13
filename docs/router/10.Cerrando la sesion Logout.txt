@@ -1,0 +1,7 @@
+1.Implementar un método removeToken en el TokenService, que elimine el token.
+
+2.Implementar un método Logout el servicio de AuthService que utilice el removeToken, pues alli está el Login.
+
+3.Implementar el Logout de  AuthService, desde un componente encargado de obtener el profile previamente logueado.
+Implementando Logout de AuthService.
+Que tambien redireccione y reinicie todo variable que guarde el profile.

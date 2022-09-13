@@ -1,0 +1,73 @@
+* Contexto de un interceptor.
+Cuando un interceptor es creado, este intercepta cualquier petición y le aplica la funcionalidad o lógica que se requiera.
+Pero si al interceptor le creamos un contexto, ya no va a afectar todas las peticiones sino a las que implementen ciertas configuraciones provienentes del interceptor.
+
+Pasos para crear un contexto.
+1. Ubicados en el archivo del interceptor importamos HttpContext y HttpContextToke.
+
+import { HttpContext,HttpContextToken } from '@angular/common/http';
+
+2. Creamos fuera de la clase interceptora una constante para decir en que 
+momento implementamos nuestro interceptor, usando una instancia de HttpContextToken.
+
+const CHECK_TIME = new HttpContextToken<boolean>( () => false);
+
+3. Implementamos una función exportable que cambie el valor de el contexto pasando a CHECK_TIME de false a true, cuando se ejecute en algún servicio de peticiones. Utilizamos HttpContext:
+
+export function checkTime() {
+  return new HttpContext().set(CHECK_TIME,true);
+}
+
+
+4. Implementamos validación del estado de la constante, que viene en la petición. En caso de ser implementada seria true, de lo contrario seria no vendria y se enviaria la petición normal sin la funcionalidad del interceptor.
+
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+
+    if (request.context.get(CHECK_TIME)) {
+      const start = performance.now();
+      return next.handle(request)
+      .pipe(
+        tap( () => {
+          const time = (performance.now() - start) + 'ms';
+          console.log(request.url, time)
+        })
+      )
+    }
+
+    return next.handle(request);
+  }
+
+5. Importamos la función que habilita el contexto del interceptor y la aplicamos al petición en la que vamos a aplicar el interceptor, en su variable context: checkTime() dentro de la cabecera de la petición.
+
+import { checkTime } from '../interceptors/time.interceptor';
+
+
+  getAllproducts(limit?:number, offset?:number) {
+    let params = new HttpParams();
+    if(limit && offset) {
+      params = params.set('limit', limit);
+      params = params.set('offset', offset);
+    }
+    return this.http.get<Product[]>(this.apiUrl, { params, context: checkTime() })
+
+  }
+
+
+Ahora solo esta petición es a quién se le aplicara la lógica del interceptor porque pasara a true el valor de la constante.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

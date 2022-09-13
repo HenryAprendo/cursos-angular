@@ -1,0 +1,49 @@
+* Manejo de ambientes.
+En angular tenemos acceso a dos ambientes:
+Uno de producción y uno de desarrollo.
+
+En nuestro proyecto manejamos un proxy para desarrollo, pero no para producción.
+Debemos configurar las variables de entorno <enviroment>.
+
+*Configurando variables de entorno para hacer el switch entre los dos ambientes.
+
+1.Ubicados en la carpeta environments, abrimos el archivo environment.ts y dentro del objeto environment agregamos una propiedad API_URL con un valor vacio para el modo desarrollo, el cual implementa un proxy que maneja los cors. 
+
+export const environment = {
+  production: false,
+  API_URL: ''
+};
+
+2.En el archivo enviroments.prod.ts agregamos una propiedad con la url asignada por el backend para producción.
+
+export const environment = {
+  production: true,
+  API_URL: "https://young-sands-07814.herokuapp.com"
+};
+
+3. Importamos el enviroment de desarrollo en el servicio de peticiones http.
+
+	* import { environment } from 'src/environments/environment';
+
+4. Implementamos el siguiente código en la variable que almacena la url para hacer las peticiones:
+	* private apiUrl = `${environment.API_URL}/api/products`;
+
+
+Angular se encargara de cambiar el valor de la variable environment.API_URL de acuerdo al ambiente. Esta variable esta vacia para el ambiente de desarrollo y viene con la url origén para el entorno de producción.
+
+Ya sabemos que el proyecto maneja un proxy, que hace que el origen de la petición no sea el puerto localhost:4200 sino la url origén, para evitar los cors.
+Estos cors implementan un protocolo de acceso para hacer peticiones entre dominios cruzados.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

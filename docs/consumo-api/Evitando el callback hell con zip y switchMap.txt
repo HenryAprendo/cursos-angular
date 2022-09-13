@@ -1,0 +1,44 @@
+* Evitando el callback hell en peticiones encadenadas.
+
+1. switchMap
+
+import { switchMap } from 'rxjs/operators';
+
+  readAndUpdate(id:string) {
+    this.productsService.getProduct(id)
+    .pipe(
+       switchMap( product => this.productsService.update(product.id, {title: 'new Title'}))
+       //switchMap( product => this.productsService.update(product.id, {title: 'new Title'}))//
+       //switchMap( product => this.productsService.update(product.id, {title: 'new Title'}))//
+    )
+    .subscribe( data => console.log(data));
+  }
+
+En switchMap una depende de otra.
+
+
+
+2. zip
+
+import { zip } from 'rxjs';
+
+  readAndUpdate(id:string) {
+    zip(
+      this.productsService.getProduct(id),
+      this.productsService.update(id, {title: 'new Title'})
+    )
+    .subscribe( response => {
+      const read = response[0];
+      const update = response[1];
+    });
+  }
+
+zip devuelve en un arreglo las respuestas de cada una las peticiones en orden
+En zip corremos un paralelo como promiseALL()
+
+
+
+
+
+
+

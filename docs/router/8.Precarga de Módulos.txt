@@ -1,0 +1,106 @@
+* Podemos tener dentro de nuestros modulos, submódulos. Y generar en estos una estrategia de precarga.
+
+Una red lenta puede hacer que nuestra estrategia de optimización lazy loading y code Splitting no sean suficientes, ya que al intentar cargarlos pueden demorar tanto dando una mala experiencia de ux.
+La razón es que cada chunk.js pasa por el proceso de descarga, parseo, compilar, ejecutar. 
+
+Por tal razón es necesario generar un estrategia de precarga efectiva que nos ayude a ir descargando ciertos modulos en segundo plano y que asi nuestra aplicación tenga mejor rendimiento y sea mas optima.
+
+		* ESTRATEGIAS DE PRECARGA ANGULAR.
+Luego de la carga inicial de los archivos base de la aplicación por parte del navegador, este aprovecha para ir descargando o haciendo precarga de los otros modulos y no esperar a que el usuario lo use para descargarlo.
+Todo esto lo hace antes del render inicial.
+
+* All Module
+1. En el app-routing.module.ts importamos:
+import { PreloadAllModules } from '@angular/router';
+
+2. En el imports de NgModel implementamos la estrategia de precarga:
+@NgModule({
+  imports: [RouterModule.forRoot(routes, {
+    preloadingStrategy: PreloadAllModules
+  })],
+
+})
+
+Esta estrategia es util para aplicaciones de pocos modulos, de lo contrario 
+daria problemas al ocupar el hilo principal de ejecución de chrome por muchos modulos que se están precargando.
+
+* CustomStrategy:  Estrategia personalizada por un servicio.
+1. creamos el servicio ng g s services/custom-preload
+
+2.En el servicio implementamos lo siguiente: 
+
+import { Injectable } from '@angular/core';
+import { PreloadingStrategy, Route } from '@angular/router';
+import { Observable, of } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CustomPreloadService implements PreloadingStrategy {
+
+  constructor() { }
+
+  preload(route: Route, load: () => Observable<any>): Observable<any> {
+    if(route.data && route.data['preload']) {
+      return load();
+    }
+    return of(null);
+  }
+}
+
+3. Solo las rutas que tengan la bandera preload en true seran precargadas.
+
+  {
+    path: '',
+    loadChildren: () => import('./website/website.module').then(m => m.WebsiteModule),
+    data: {
+      preload: true
+    }
+  },
+
+En el app-routing.module.ts importamos el servicio y lo implementamos como estrategia de precarga.
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes, {
+    preloadingStrategy: CustomPreloadService
+  })],
+
+})
+
+
+
+* 	QuickLinkStrategy.
+Con la api Observable intersection del navegador detecta todos los routerLink que estén en el viewport de la pantalla, y de esta manera descarga el modulo correspondiente a esa ruta.
+
+1.Intallamos a quicklink:
+npm i ngx-quicklink --save
+
+2.La importamos al modulo principal y todos los submodulos que queramos implementar esta estrategia.
+ 
+3.
+En el modulo principal
+import { QuicklinkModule } from 'ngx-quicklink';
+
+  imports: [
+    QuicklinkModule
+  ],
+
+En el routing:
+import { QuicklinkStrategy} from 'ngx-quicklink';
+@NgModule({
+  imports: [RouterModule.forRoot(routes, {
+    preloadingStrategy: QuicklinkStrategy
+  })],
+
+})
+
+
+
+
+
+
+
+
+
+
+

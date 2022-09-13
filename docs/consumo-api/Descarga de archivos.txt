@@ -1,0 +1,12 @@
+1. Creación de un servicio para descargar archivos.
+
+	ng g s services/files
+
+2. Instalación en este caso de una libreria.(sin tipado)
+	
+	npm i file-saver
+
+3. Se agrega tipado a la libreria (empanada)
+
+	npm install @types/file-saver --save-dev
+	

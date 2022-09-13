@@ -1,0 +1,18 @@
+¿Qué es Linting?
+Lint es una herramienta de software que revisa y “observa” tu código en busca de errores que puedan afectar tu código. Algunos “linteres” incluso pueden darte sugerencias de como arreglar el error o incluso arreglarlo ellos mismos.
+
+Nos ayudan a emplear las buenas practicas de angular.
+
+* Configuración de un eslint/schematics
+
+	 ng add @angular-eslint/schematics
+
+* Ejecución
+	ng lint
+
+	de esta forma analiza el código y apareceran las sugerencias para mejoras 	
+	en el código especifico.
+
+* Es necesario instalar la extensión ESLint en VSCode.
+De esta forma veremos marcados las malas practicas para corregir. Sino queremos implementar el linter simplemente podemos deshabilitarlo haciendo click sobre la marca en rojo, aparece un indicador amarillo que despliega las opciones de deshabilitar por linea o en el proyecto completo.
+

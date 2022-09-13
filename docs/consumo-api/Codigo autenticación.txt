@@ -1,0 +1,72 @@
+Autenticación.
+
+1. Creamos un servicio para auth, users y token
+
+	ng g s services/auth
+	ng g s services/users
+	ng g s services/token
+
+2.Interceptores
+
+Interceptan todas las peticiones hacia el backen y ejecutan una lógica para diferentes casos como tiempo de respuesta, o evaluar token.
+
+* Evaluando el tiempo de respuesta por medio de un interceptor
+
+	ng g interceptor interceptor/time
+
+* Se debe proveer de forma manual en el app.module.ts
+
+  import { HTTP_INTERCEPTORS } from '@angular/common/http';
+  import { TimeInterceptor } from './interceptors/time.interceptor';
+
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TimeInterceptor, multi: true}
+  ],
+
+
+* Enviar token con un interceptor
+
+1. En un servicio para token TokenServices creamos los métodos para guardar y obtener un token en localStorage o en una cookies.
+
+
+  saveToken(token:string) {
+    localStorage.setItem('token', token);
+  }
+
+  getToken() {
+    const token = localStorage.getItem('token');
+    return token;
+  }
+
+2.Creamos un interceptor para enviar el token a cada petición que lo requiera y en el importamos el TokenService para obtener el token de localStorage
+
+ng g interceptor interceptors/token 
+
+Dentro implementamos la lógica de clonar el request para modificar el header y agregarle el token.
+
+3. Agregamos el interceptor al provider en el app.module.ts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

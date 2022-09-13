@@ -1,0 +1,49 @@
+* Creación de CMS content manament sistem, que es un sistema de administración de contenido.
+
+1. ng g m cms --routing generando los siguientes archivos.
+
+src/app/cms/cms-routing.module.ts (246 bytes)
+src/app/cms/cms.module.ts (268 bytes)
+
+2. creamos algunas paginas dentro este modulo
+
+ng g c cms/pages/grid
+ng g c cms/pages/tasks
+
+3. Creamos un componente de layout para renderizar las paginas del modulo.
+ng g c cms/components/layout
+
+En el layout debe traer una maquetación junto con un router-outlet que renderize las rutas.
+
+4. Definir las rutas en el routing, dejando las pages como hijas del layout
+import { GridComponent } from './pages/grid/grid.component';
+import { TasksComponent } from './pages/tasks/tasks.component';
+import { LayoutComponent } from './components/layout/layout.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: '/grid',
+        pathMatch: 'full'
+      },
+      {
+        path: 'grid',
+        component: GridComponent
+      },
+      {
+        path: 'tasks',
+        component: TasksComponent
+      }
+    ]
+  }
+];
+
+5.Importamos el modulo en app-routing.module.ts que es el root de la aplicación
+
+
+
+

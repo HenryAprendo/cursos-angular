@@ -1,0 +1,9 @@
+* Not Found 404
+
+Cuando la ruta a la que se quiere ir resulta invalida, es ideal colocar una pagina de not found cada vez que esto suceda.
+Se colocaria al final de los path asi: 
+
+  {
+    path: '**',
+    component: NotFoundComponent
+  }

@@ -1,0 +1,207 @@
+
+<h1 style="color: blue;">{{'Fundamentos de Angular'}}</h1>
+<hr/>
+
+
+<h2>{{'Formulario'}}</h2>
+
+<form (ngSubmit)="onRegister()" #myForm="ngForm">
+  <div class="input-group">
+    <label for="name">Nombre</label>
+    <input type="text" name="name" required id="name" #inputNombre="ngModel" [(ngModel)]="register.name">
+    <p class="error-message" [class.invalid]="inputNombre.invalid">{{message.isNotValid}}</p>
+    <p class="error-message" [class.valid]="inputNombre.valid">{{message.isValid}}</p>
+  </div>
+
+  <div class="input-group">
+    <label for="email">Email</label>
+    <input type="text" name="email" required id="email" [(ngModel)]="register.email ">
+    <p>Mensaje de error</p>
+  </div>
+
+  <div class="input-group">
+    <label for="password">Password</label>
+    <input type="text" name="password" required id="password" [(ngModel)]="register.password">
+    <p>Mensaje de error</p>
+  </div>
+
+  <button [disabled]="myForm.invalid" type="submit">Registrar</button>
+
+</form>
+
+
+
+
+
+
+
+
+
+
+
+<hr/>
+
+<h2 style="color: red;">{{'NgClass & NgStyle'}}</h2>
+<input type="text" required #nameInput4="ngModel" [(ngModel)]="person.name">
+<hr class="line-error"
+  [ngClass]="{
+    'valid': nameInput4.valid,
+    'invalid': nameInput4.invalid
+  }"
+/>
+
+
+<div class="styles">
+  <div>
+    <input type="number" [(ngModel)]="box.width">
+    <input type="number" [(ngModel)]="box.height">
+    <input type="color" [(ngModel)]="box.background">
+  </div>
+  <div>
+    <div [ngStyle]="{
+      'width.px': box.width,
+      'height.px': box.height,
+      'background-color': box.background,
+      'display': 'block'
+    }"></div>
+  </div>
+</div>
+
+
+<hr/>
+
+
+<h2 style="color: red;">{{'Class & Style dinamicos'}}</h2>
+
+<input type="text" required #nameInput2="ngModel"  [(ngModel)]="person.name">
+<p class="message-error" [class.invalid]="nameInput2.invalid">
+  El campo es requerido
+</p>
+
+<label>Nombre</label>
+<input type="text" required #nameInput3="ngModel" [(ngModel)]="person.name">
+<p [style.font-style]="nameInput3.invalid ? 'italic' : 'normal'">Estilo dinamico en forma directa</p>
+
+<div class="styles">
+  <div>
+    <input type="text" [(ngModel)]="widthImg">
+  </div>
+  <div>
+    <img [style.width.%]="widthImg" [src]="person.avatar" alt="avatar">
+    <!-- [style.width.%]="widthImg" -->
+  </div>
+</div>
+
+
+<hr/>
+
+
+<h2 style="color: red;">{{'Directiva *ngFor Array of Object'}}</h2>
+<div class="products--grid">
+  <div *ngFor="let product of products">
+    <img [src]="product.image" alt="image">
+    <h2>{{product.price}}</h2>
+    <p>{{product.name}}</p>
+  </div>
+</div>
+
+
+<hr/>
+
+<h2 style="color: red;">{{'ngSwitch'}}</h2>
+<input type="text" [(ngModel)]="person.name">
+<div [ngSwitch]="person.name">
+  <p *ngSwitchCase="'nicolas'">
+    La persona es Nicolas
+  </p>
+  <p *ngSwitchCase="'julian'">
+    La persona es Julian
+  </p>
+  <p *ngSwitchCase="'camilo'">
+    La persona es Camilo
+  </p>
+  <p *ngSwitchDefault>No hace match</p>
+</div>
+
+<hr/>
+
+
+<h2 style="color: red;">{{'Directiva *ngFor'}}</h2>
+
+<input type="text" [(ngModel)]="newName">
+<button (click)="addName()">Add name</button>
+
+<ul>
+  <li *ngIf="names.length === 0">No hay elementos en la lista</li>
+  <li *ngFor="let name of names; index as i">
+    {{i}} {{name}}
+    <button (click)="deleteName(i)">Delete</button>
+  </li>
+</ul>
+
+<ul>
+  <li *ngFor="let team of listTeam; index as i">
+    {{i}} {{team}}
+  </li>
+  <button (click)="orderList()">Order List</button>
+</ul>
+
+
+<hr/>
+
+<h2 style="color: red;">{{'Directiva *ngIf'}}</h2>
+<input type="text" required [(ngModel)]="person.name">
+<p *ngIf="person.name === 'Henry'">Es Henry</p>
+<p *ngIf="person.name === 'Julian' && person.age >= 18; else myBlock">Es Julian</p>
+
+<ng-template #myBlock>
+  <p>No es Julian</p>
+</ng-template>
+
+
+<hr/>
+
+<h2 style="color: red;">{{'Ng Model'}}</h2>
+<!-- Enlace bidireccional entre la view y el controller en cuanto a la propiedad.  ngModel = Property Binding + Event Binding
+ngModel me permite asociar a la propiedad value del input un evento, de tal forma que al detectar un camnbio en el input lo asocia a la propiedad-->
+<p>Nombre: {{ person.name }}</p>
+<input type="text" required #nameInput="ngModel" [(ngModel)]="person.name">
+<p>Valid: {{nameInput.valid}}</p>
+
+<p>Age: {{ person.age}}</p>
+<input type="number" required max="18" min="10" #ageInput="ngModel" [(ngModel)]="person.age">
+<p>Valid: {{ ageInput.valid }}</p>
+
+<hr/>
+
+<h2 style="color: red;">{{'Event Binding'}}</h2>
+<button [disabled]="btnDisabled">Activar</button>
+<button (click)="toggleButton()">Toggle Button</button>
+<p>Edad {{ person.age }}</p>
+<button (click)="increaseAge()">Age ++</button>
+
+<div class="box" (scroll)="onScroll($event)">
+  <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Labore corporis expedita dolorum, eveniet aperiam voluptates id inventore ratione est dolorem tenetur debitis, natus exercitationem velit aspernatur. Labore aliquid ducimus magni.Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptate autem pariatur at quaerat magnam, tenetur fuga adipisci perferendis aspernatur magni, deserunt incidunt dignissimos exercitationem quae eligendi aliquid, natus quibusdam sequi.</p>
+
+</div>
+
+<p>Nombre {{person.name}}</p>
+<input type="text" [value]="person.name" (keyup)="changeName($event)">
+
+<hr/>
+<h2 style="color: red;">{{'Property Binding'}}</h2>
+<!-- Util para modificación de propiedades -->
+
+<button [disabled]="btnDisabled">Enviar</button>
+<input type="text" [value]="person.name">
+<progress max="100" [value]="person.age"></progress>
+<img width="100" [src]="person.avatar" alt="avatar">
+
+<hr/>
+<h2 style="color: red;">{{'String Interpolation'}}</h2>
+<!-- Utilizado para contenido de la etiqueta -->
+
+<h2>{{'Hola Mundo'.repeat(5)}}</h2>
+<p>3 + 3 = {{ 3 + 3 }}</p>
+<h3>Hola, soy {{ name }}</h3>
+<img width="100" src="{{img}}" alt="image">

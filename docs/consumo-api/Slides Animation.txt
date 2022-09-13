@@ -1,0 +1,46 @@
+		Implementación de un Slides desde una libreria.
+
+
+* Implementamos la libreria Swiper 
+
+1. Instalación.
+	npm i swiper
+
+2. Importar módulo SwiperModule
+
+	import { SwiperModule } from 'swiper/angular';
+	
+3.	Lo agregamos al import del ngModule
+
+
+4. Importamos los estilos en el archivo style.scss
+	@import url('~swiper/swiper-bundle');
+
+5. Ejemplo de uso
+<!-- Detalle: visible solo al dar click -->
+<div class="product-details" [class.active]="showProductDetails">
+  <div *ngIf="productChosen">
+    <button (click)="toggleProductDetail()">Close</button>
+    <h1>{{ productChosen.title }}</h1>
+
+    <swiper [slidesPerView]="1">
+      <ng-template swiperSlide *ngFor="let img of productChosen.images">
+        <img [src]="img" alt="">
+      </ng-template>
+
+   </swiper>
+
+    <p>{{ productChosen.description }}</p>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+

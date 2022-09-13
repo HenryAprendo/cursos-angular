@@ -1,0 +1,69 @@
+			Reactividad
+
+* Comunicando componentes en estructuras dom con un arbol complejo, mediante el uso del patron observable que nos permite informar a los clientes suscritos de un cambio en algun atributo en el cual tiene interés.
+
+En el servicio donde está la información que queremos comunicar vamos a generar un store global que avise a los suscriptores de un cambio de estado.
+
+1. Importamos la libreria rxjs que implementa todo el patrón de observables en angular.
+
+	import { BehaviorSubject } from 'rxjs';
+
+2. Creamos el observable a partir de BehaviorSubjec dentro de la clase
+
+	private myCart = new BehaviorSubject<Product[]>([]);
+
+	indicando que tiene un array de producto en el generico <> y con un 	estado inicial de un array vacio [];
+
+3. Generamos un suscriptor y exponemos un observable, los observables se definen con el nombre de la variable y el signo pesos al final. name$
+
+	myCart$ = this.myCart.asObservable();
+
+4. Para transmitir los cambios de estado del array de productos, implementamos en donde corresponda lo siguiente:
+
+	this.myCart.next(this.myShoppingCart);
+
+	En este ejemplo, este código va dentro de la función que agrega un 	producto al array myShoppingCart. Cada vez que se agrega un producto 	entonces se genera una notificación a los clientes suscritos como por 	ejemplo el carrito de compras de un nav, se le envia el nuevo estado del 	array.
+
+
+5. Implementación del servicio en el cliente.
+	
+	* Importamos el store.services.ts al componente que lo requiera
+	* Inyectamos en el servicio en el constructor
+	* Implementamos la suscripción y recibimos la información enviada desde 	 el observable en el ngOnInit().
+
+	
+  counter = 0	
+
+  ngOnInit(): void {
+    this.storeService.myCart$.subscribe( products => {
+      this.counter = products.length;
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

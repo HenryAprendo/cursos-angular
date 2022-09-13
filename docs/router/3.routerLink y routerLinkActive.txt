@@ -1,0 +1,13 @@
+* routerLink
+
+Es util para pasar a otra ruta por medio de un elemento ancla
+<li><a routerLink="home" >All</a></li>
+redireciona al home
+
+* routerLinkActive 
+
+Es util para agregar una nueva clase al elemento, en vez de usar class
+<a routerLinkActive="active" [routerLink]="['/category', item.id]" >{{item.name}}</a>
+
+al dar click al elemento, se agrega la clase active y se ejecutan los estilos
+definidos.

@@ -1,0 +1,101 @@
+.box {
+  height: 200px;
+  width: 200px;
+  overflow: auto;
+  background: red;
+}
+
+.message-error {
+  background: red;
+  color: white;
+  opacity: 0;
+  transition: all linear .5s;
+  &.invalid {
+    opacity: 1;
+  }
+}
+
+// Ejercicio
+.error-message {
+  opacity: 0;
+  &.invalid {
+    background-color: red;
+    color: white;
+    opacity: 1;
+  }
+  &.valid {
+    background-color: white;
+    color: blue;
+    opacity: 1;
+  }
+
+}
+
+.line-error {
+  height: 0;
+  border-bottom: 1px solid;
+  &.invalid {
+    border-color: red;
+  }
+  &.valid {
+    border-color: green;
+  }
+}
+
+.styles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.products--grid {
+  display: flex;
+  flex-direction: column;
+
+  div {
+    img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    h2, p {
+      margin: 0;
+    }
+    h1 {
+      font-family: Arial;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    p {
+        font-family: Arial;
+        font-size: 18px;
+        padding-bottom: 10px;
+    }
+
+  }
+
+}
+
+@media screen and (min-width: 768px) {
+  .products--grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px;
+
+  }
+}
+
+
+@media screen and (min-width: 1024px) {
+  .products--grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+
+
+
+
+
+
+
+
+

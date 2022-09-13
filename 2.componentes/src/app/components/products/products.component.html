@@ -1,0 +1,16 @@
+
+<p>Cantidad de productos: {{ myShoppingCart.length }}</p>
+
+<p>Precio total: ${{ total }}</p>
+
+<p>Today: {{ today | date:'short' }}</p>
+
+<!-- <p>Other date: {{ date | date: 'yyyy.dd.MM' }}</p>
+
+<p>{{'uppercase' | uppercase}}</p> -->
+
+<p>{{ 'invertir orden de un string' | reverse }}</p>
+
+<div class="products--grid">
+  <app-product (addedProduct)="onAddToShoppingCar($event)" [product]="product" *ngFor="let product of products "></app-product>
+</div>

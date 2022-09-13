@@ -1,0 +1,137 @@
+* Posicionamiento de una vista del detalle del producto, o de alguna ventana de confirmación que necesite tener prioridad sobre la vista principal.
+* En este caso el contenedor hace parte del mismo html.
+Siempre usando fixed.
+
+.product-details {
+  position: fixed;
+  top: 15%;
+  left: 5%;
+  bottom: 13%;
+  right: 5%;
+  background-color: aliceblue;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: all ease-out 0.5s;
+  transform: translateX(100%);
+  &.active{
+    transform: translateX(0);
+  }
+  border-radius: 5px;
+}
+
+Position: fixed;
+
+Top: 0 El borde inicial de la parte de arriba de la pantalla
+Top: 15% Apartir del punto cero, suma la medida equivalente al 15% del alto de la pantalla. Y desde ese nuevo punto ubica el elemento en dirección
+al centro de la pantalla.
+Top: -200px Significa que el punto de partida estaria -200px arriba de top 0 o el porcentaje negativo con respecto a la pantalla. Es decir del limite de la pantalla hacia afuera del lado top, una ubicación como está solo mostraria lo que esta apartir del top 0; 
+
+Right: 0 El borde inicial de la parte derecha de la pantalla
+Right: 50% Apartir del punto cero de right, que es el lado derecho de la pantalla, suma la medida equivalente al 50% del width y apartir de ese 
+punto ubicaria el elemento. tiende a alejar al elemento hacia el lado izquierdo.
+
+Left: 0 El borde inicial de la parte izquierda de la pantalla
+Left: 50% Apartir del punto cero de left, que es el lado izquierdo de la pantalla, suma la medida equivalente al 50% del width y apartir de ese 
+punto ubicaria el elemento. Tiende a alejar el elemento hacia el lado derecho.
+
+bottom: 0 El borde inicial de la parte de abajo de la pantalla
+Left: 30% Apartir del punto cero de bottom, que es el lado abajo de la pantalla, suma la medida equivalente al 30% del width y apartir de ese 
+punto ubicaria el elemento. Tiende a alejar el elemento hacia el lado de arriba de la pantalla.
+
+
+Nota. 
+Los porcentajes negativos, es apartir del punto cero o limite de la pantalla hacia afuera.
+
+
+
+* Transform:
+
+  transform: translateX(100%);
+
+  &.active{
+    transform: translateX(0);
+  }
+
+
+* translateX(100%)
+
+<-----------Pantalla------------->>-----exterior-------<
+
+X(0)-----------------------X(100%)
+
+translateX(100%) Significa que el contenedor se ubicara a partir del 100% del width de la pantalla, es decir hacia la parte exterior del limite,
+lo que significa que estaria invisible al usuario.
+
+translateX(0) Significa que el contenedor se ubicara a partir del 0 del width hasta el 100% del width, es decir ocuparia el ancho de la pantalla.
+lo que significa que estaria visible al usuario.
+
+
+
+
+* Centrando
+La siguiente configuración ubica el contenedor al centro de la pantalla en mobile
+	 position: fixed;
+  	 top: 15%;
+  	 left: 5%;
+  	 right: 5%;
+	 bottom: 13%;
+
+	 transform: translateX(110%);	El porcentaje va a depender de los estilos y espacios(padding) que tengamos, lo cual hara que vayamos un poco 	 mas del 100% para ocultar el contenedor con precisión. O si es necesario valores negativos.
+
+	Se debe tener cuidado con el tamaño del contenedor ya que si aplicamos porcentajes altos entre right y left y la pantalla es pequeña,
+	puede generarse una deformación del contenedor que no se veria muy bien.
+
+* Ubicando el contenedor al lado derecho de la pantalla desktop y tablets.
+    position: fixed;
+    top: 0;
+    left: 50%;
+    bottom: 0;
+    right: 0;
+
+* Ubicando el contenedor al lado izquierdo de la pantalla.
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 50%;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+					

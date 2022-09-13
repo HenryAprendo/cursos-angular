@@ -1,0 +1,50 @@
+			Obteniendo datos de una API
+
+* Creación de un nuevo servicio para peticiones 
+ 	ng g s services/products
+
+* Habilitación del module http en app.module.ts
+	import { HttpClientModule } from '@angular/common/http';
+
+* Lo agregamos a la propiedad imports del decorador ngModule.
+
+   @NgModule({
+ 
+  	imports: [
+    	BrowserModule,
+   	AppRoutingModule,
+   	HttpClientModule,
+    	FormsModule
+    ]
+   })
+	
+* En el products.service.ts importamos el servicio de HttpClient del modulo importado.
+
+	import { HttpClient } from '@angular/common/http';
+	
+* Luego realizamos la inyección de dependencia del modulo HttpClient en el constructor.
+
+  constructor(
+    private http: HttpClient
+  ) {
+
+  }
+
+* apartir de http ejecutamos las peticiones a una api
+
+
+* El servicio products.services.ts puede ser inyectado a otro servicio o componente, con el fin de utilizar cada de una las peticiones. 
+Hay que tener en cuenta que al ser asincrono no podemos implementarlo en el constructor sino en el ngOnInit que es el lugar recomendado para funcionamiento asincronico.
+
+
+
+
+
+
+
+
+
+
+
+	
+

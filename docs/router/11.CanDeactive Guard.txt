@@ -1,0 +1,68 @@
+* CanDeactive
+Es un guardian que nos permite salir de una ruta, muy utilido por ejemplo en formularios de registro para preguntar 
+al usuario si desea salir de la pagina sin haber terminado el registro, y se le da la opción de cancelar o confirmar su salida.
+
+1. ng g g guards/exit
+
+2. Creamos una interface OnExit con la definición de un método para confirmar la salida de una ruta.
+
+3. Implementamos la interface creada en el componente al cual queremos proteger la salida de su vista.
+
+4. En el parametro component del método CanDeactive del nuestro guardian, quitamos unknow y agregamos la interface.
+
+5. por ultimo ejecutamos una validación que permita ver si el componente tiene implementada la interface y de acuerdo esto
+ejecute el método desde el componente, en caso contrario devuelva true para permitir la salida de la ruta.
+
+6. Lógica del guardian.
+
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Observable } from 'rxjs';
+
+export interface OnExit {
+  onExit: () => Observable<boolean> | Promise<boolean> | boolean;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ExitGuard implements CanDeactivate<unknown> {
+  canDeactivate(
+    component: OnExit,
+    currentRoute: ActivatedRouteSnapshot,
+    currentState: RouterStateSnapshot,
+    nextState?: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    return component.onExit ? component.onExit() : true;
+  }
+
+}
+
+
+7. Lógica del componente
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { OnExit } from 'src/app/guards/exit.guard';
+
+@Component({
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
+})
+export class RegisterComponent implements OnExit {
+
+  constructor() { }
+
+  onExit(): boolean | Observable<boolean> | Promise<boolean> {
+    const rta = confirm('Estás seguro que deseas salir de la página');
+    return rta;
+  }
+
+
+}
+
+8. Implementación en el routing.
+     {
+        path: 'register',
+        canDeactivate: [ExitGuard],
+        component: RegisterComponent
+      },

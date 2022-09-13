@@ -1,0 +1,61 @@
+
+<!-- Principal: Visible en todas las vistas -->
+<!--
+<p>Cantidad de productos: {{ myShoppingCart.length }}</p>
+
+<p>Precio total: ${{ total }}</p>
+
+<p>Today: {{ today | date:'short' }}</p>
+
+<p>{{ 'invertir orden de un string' | reverse }}</p> -->
+
+<!-- <p>Other date: {{ date | date: 'yyyy.dd.MM' }}</p>
+
+<p>{{'uppercase' | uppercase}}</p> -->
+
+<!-- <button (click)="createNewProduct()">Create Product</button> -->
+
+
+<div class="products--grid">
+  <app-product (addedProduct)="onAddToShoppingCar($event)" [product]="product" *ngFor="let product of products"
+
+  (showProduct)="onShowDetails($event)"
+  ></app-product>
+</div>
+<button (click)="loadMoreProduct()">Más productos</button>
+
+
+<!-- Detalle: visible solo al dar click -->
+<div class="product-details" [class.active]="showProductDetails">
+  {{ statusDetails }}
+  <div *ngIf="productChosen">
+    <button (click)="toggleProductDetail()">Close</button>
+    <h1>{{ productChosen.title }}</h1>
+
+    <swiper [slidesPerView]="1">
+      <ng-template swiperSlide *ngFor="let img of productChosen.images">
+        <img [src]="img" alt="">
+      </ng-template>
+
+   </swiper>
+
+    <p>{{ productChosen.description }}</p>
+
+    <button (click)="updateProduct()">Edit</button>
+
+    <button (click)="deleteProduct()" >Delete</button>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

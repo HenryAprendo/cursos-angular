@@ -1,0 +1,12 @@
+Es buena practica crear paginas en las cuales se administren las rutas y 
+en donde se renderizen los componentes.
+
+* RUTAS
+ng g c pages/home
+ng g c pages/notFound
+ng g c pages/category
+ng g c pages/mycart
+ng g c pages/login
+ng g c pages/register
+ng g c pages/recovery
+ng g c pages/profile

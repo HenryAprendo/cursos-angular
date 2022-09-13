@@ -1,0 +1,41 @@
+* ROUTING
+
+1. Para el manejo de routing implementamos la directiva router-outlet dentro del componente raiz app.component.html.
+
+<router-outlet></router-outlet>
+Apartir de este renderizamos la ruta actual donde se encuentre el usuario
+
+2. Definimos las rutas en el app-routing.module.ts
+
+2.1 Importamos los componentes de la carpeta pages que seran las rutas a 	renderizar.
+
+	import { HomeComponent } from './pages/home/home.component';
+	import { NotFoundComponent } from './pages/not-found/not-found.component';
+	import { CategoryComponent } from './pages/category/category.component';
+	import { MycartComponent } from './pages/mycart/mycart.component';
+	import { LoginComponent } from './pages/login/login.component';
+	import { RegisterComponent } from './pages/register/register.component';
+	import { RecoveryComponent } from './pages/recovery/recovery.component';
+	import { ProfileComponent } from './pages/profile/profile.component';
+
+2.2 En el array routes que se crea por default, creamos los paths para las 
+diferentes rutas.
+	
+const routes: Routes = [
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: 'category',
+    component: CategoryComponent
+  }
+];
+
+
+3.3 Redireccionamiento de rutas 
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },

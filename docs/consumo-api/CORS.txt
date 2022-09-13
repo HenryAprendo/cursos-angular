@@ -1,0 +1,97 @@
+		* CORS: CROSS-ORIGIN RESOURCE SHARING o  Intercambio de 					Recursos de Origen Cruzado
+
+Explica sobre como permitir hacer peticiones desde varios dominios o dominios cruzados.
+
+* Origén propio
+Cuando hacemos peticiones a una api desde su mísmo origén todo funcionara ok.
+ejemplo.
+origin:  api.mydomain.com	<------ petición al mismo api.mydomain.com--->
+
+* Origén distinto
+Pero cuando hacemos peticiones desde un origén distinto al establecido por el backend nos dara un problema de cors.
+
+api.mydomain.com <- mydomain.com---> <- app.mydomain.com--->
+
+	origén	 <------------ o. distinto----------------->
+
+				CORS
+
+También puede presentar el error, si utilizamos el localHost en el algún puerto, en el modo desarrollo.
+
+localhost:3000
+
+* SOLUCIONES A LOS CORS.
+
+1. Que el backend acepte los dominios o que habilite los cors, y que no solamente sea desde el origén. Sino que habilite por ejemplo un puerto localhost:4200. (Concertar con el backend).
+
+2.La otra solución desde el frontend, es implementar un proxy para desarrollo que consiste en cambiar el cors desde el origén,
+pero solo funciona en el modo de desarrollo. Asi que igual faltaria, agregar algo mas.
+
+	* Implementación del proxy, solo para modo desarrollo. Porque en p	rodución seguira el error de cors.
+
+	1. Creamos un archivo proxy.config.json
+
+	2. Aplicamos la siguiente configuración en este archivo
+
+	{
+		"/api/*": {
+			"target": "https://young-sands-07814.herokuapp.com",
+			"secure": true,
+			"logLevel": "debug",
+			"changeOrigin": true
+		}
+	}
+
+	Cualquier petición que venga con "/api/*", de hay en adelante
+	aplique las reglas de configuración.
+
+Ahora en el servicio no se enviaria la petición como:
+private apiUrl = 'https://young-sands-07814.herokuapp.com/api/products';
+
+sino el endPoint:
+private apiUrl = '/api/products'
+
+Con lo anterior ya nuestra aplicación no saldria desde localhost:4200
+que utilizamos en angular sino que el proxy la intercepta y la cambia a su origén.
+
+3.Creamos un script en el package.json para correr la aplicación con el proxy.
+	"scripts": {
+		"start:proxy": "ng serve --proxy-config ./proxy.config.json",
+	}
+
+4. Run 
+	* npm run start:proxy o 
+
+	* ng serve --proxy-config ./proxy.config.json
+
+	De esta forma se crearia nuestro servidor de desarrollo.
+
+
+TENER EN CUENTA. 
+Con el proxy, ya no podemos correr el NG SERVE para correr la aplicación
+
+
+
+
+
+
+
+Solucion definitiva: 
+Para producción el backend deberia habilitar los dominios o direcciones donde se debe alojar nuestro sistema.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

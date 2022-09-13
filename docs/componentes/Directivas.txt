@@ -1,0 +1,91 @@
+		DIRECTIVAS.
+
+* Uso de las Directivas.
+Las directivas nos permiten modificar el dom de forma nativa y tambien modificar atributos html.
+
+* Creación de una directiva desde el CLI (Command Line Interface) de angular.
+
+	ng g d directives/highlight
+
+	El resultado seran dos archivos como siguen:
+	src/app/directives/highlight.directive.spec.ts
+	src/app/directives/highlight.directive.ts
+
+* El archivo highlight.directive.ts tendra la siguiente composición:
+
+import { Directive, ElementRef } from '@angular/core';
+
+@Directive({
+  selector: '[appHighlight]'
+})
+export class HighlightDirective {
+
+  constructor(
+	private element: ElementRef
+  ) { 
+	this.element.nativeElement.style.backgroundColor = 'red';
+  }
+
+}
+
+El cual tiene  un decorador @Directive que define el comportamiento de la clase como directiva y un selector de uso en la plantilla.
+
+Para la manipulación del dom, debemos importar el servicio elementRef y lo inyectamos en el constructor.
+
+Ahora podemos acceder a cualquier elemento que contenga esta directiva como propiedad en la plantilla.
+
+<p appHighlight >Directivas para manipulación del dom nativamente</p>
+
+
+* Escucha de eventos a través de una directiva.
+Podemos hacer modificaciones al dom despues de ocurrido un evento como tal.
+
+1. importamos el decorador HostListener
+
+2. Implementamos HostListener para escuchar un evento y ejecutar un método a partir de ese evento,
+en este caso lo que hace es detectar el evento mouseenter(hover) sobre el elemento que utilice la directiva y cambiar
+el backgroundColor de forma nativa, tambien detecta cuando esta fuera(mouseleave) del elemento y asi quitar el backgrounColor.
+
+import { Directive, ElementRef, HostListener } from '@angular/core';
+
+@Directive({
+  selector: '[appHighlight]'
+})
+export class HighlightDirective {
+
+  @HostListener ('mouseenter') onMouseEnter() {
+    this.element.nativeElement.style.backgroundColor = 'red';
+  }
+
+  @HostListener ('mouseleave') onMouseLeave() {
+    this.element.nativeElement.style.backgroundColor = '';
+  }
+
+  constructor(
+    private element: ElementRef
+  ) {
+
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,18 @@
+* Shared Modulo (Modulo compartido)
+
+Es un modulo que agrupa todos los componentes, directivas y pipes que otros modulos podrian utilizar.
+Este modulo no tiene routing.
+
+1. creación: ng g m shared
+Obtenemos un archivo shared/shared.module.ts en el cual importamos los modulos a compartir, y los agregamos la
+propiedad declarations del NgModule.
+
+2.Luego en una propiedad export del NgModule exportamos los modulos que vamos a compartir, colocandolos dentro 
+de una matrix como en el imports.
+
+3.Para usar el SharedModule en otro modulo, por ejemplo el website debemos importarlo y agregarlo en los imports 
+junto a los demas modulos.
+
+4.Como el SharedModule no tiene routing y estamos utilizando directivas de enrutamiento como routerLink y queryParams
+, debemos entonces importar el modulo RouterModule en el Shared.Module.ts y agregarlo a los imports para modulos.
+De lo contrario dara error la aplicación.

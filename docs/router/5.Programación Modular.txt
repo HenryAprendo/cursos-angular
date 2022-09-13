@@ -1,0 +1,13 @@
+Programaciónn Modular: Lazy Loading y code splitting 
+
+1.Organizar las carpetas de componentes, directives, pages y pipes para un una carpeta website que sera sera un modulo.
+
+website{ components, directives, pages(enrutamiento y render de componentes),
+pipes}
+
+2. Los servicios, modelos e interceptores quedan dentro de app, para uso global
+en otros modulos.
+
+3. Es de gran utilidad un componente layout para el render de nuestro modulo.
+De tal forma que el nav y el resto de rutas aparecen solo aqui. Y en el app.component.html solo estaria el router-outlet para renderizar cada modulo según la ruta.
+
