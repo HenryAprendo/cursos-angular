@@ -1,0 +1,42 @@
+<h2>Validators Input Control</h2>
+
+<section>
+
+  <p>
+    <input
+    [class.is-valid]="isNameFieldValid"
+    [class.is-invalid]="isNameFieldInvalid"
+    type="text" [formControl]="nameField"
+    >
+    <button [disabled]="nameField.invalid" (click)="getValueName()">Get value</button>
+  </p>
+
+  <div class="messages" [class.active]="isNameFieldInvalid">
+    <p>
+      <strong *ngIf=" nameField.touched && nameField.hasError('required')">Este campo es requerido</strong>
+    </p>
+
+    <p>
+      <strong *ngIf="nameField.touched && nameField.hasError('maxlength')">Limite máximo de 10 caracteres</strong>
+    </p>
+  </div>
+
+  <p>
+    Name: {{nameField.value}}
+  </p>
+  <p>
+    StateValid: {{nameField.valid}}
+  </p>
+  <p>
+    StateInvalid: {{ nameField.invalid }}
+  </p>
+  <div>
+    StateTouch: {{ nameField.touched }}
+    <p>touched está asociado al evento nativo blur, que detecta que ya se está fuera del input</p>
+  </div>
+  <div>
+    StateDirty: {{ nameField.dirty }}
+    <p>dirty está asociado al evento nativo input, que detecta cambios en la entrada del input</p>
+  </div>
+
+</section>

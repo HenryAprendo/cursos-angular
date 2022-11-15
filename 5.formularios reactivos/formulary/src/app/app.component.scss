@@ -1,0 +1,21 @@
+nav {
+  margin-bottom: 1rem;
+  background-color: lightcyan;
+  padding: 1rem;
+}
+nav a {
+  color:tomato;
+  font-size: 1.2rem;
+  padding: .5rem;
+  margin-left: 0.5rem;
+  text-decoration: none;
+  &.active {
+    border: 1px solid mediumseagreen;
+    border-radius: 3px;
+    color:  darkblue;
+  }
+}
+
+nav a:hover {
+  cursor: pointer;
+}

@@ -1,0 +1,42 @@
+<h2>Grupos anidados</h2>
+
+<form [formGroup]="form" (ngSubmit)="getValue()">
+
+  <p>
+    <label>Email</label>
+    <input type="email" formControlName="email">
+  </p>
+  <div class="messages"  [class.active]="emailField?.touched && emailField?.invalid">
+    <p>
+      <strong *ngIf="emailField?.hasError('required')">Campo requerido</strong>
+    </p>
+  </div>
+
+  <div formGroupName="fullName">
+
+    <p>
+      <label>Name</label>
+      <input type="text" formControlName="name">
+    </p>
+
+    <div class="messages"  [class.active]="nameField?.touched && nameField?.invalid">
+      <p>
+        <strong *ngIf="nameField?.hasError('required')">Campo requerido</strong>
+      </p>
+    </div>
+
+    <p>
+      <Label>Last</Label>
+      <input type="text" formControlName="last">
+    </p>
+
+    <div class="messages"  [class.active]="lastField?.touched && lastField?.invalid">
+      <p>
+        <strong *ngIf="lastField?.hasError('required')">Campo requerido</strong>
+      </p>
+    </div>
+
+  </div>
+
+  <button type="submit">Ver valor</button>
+</form>

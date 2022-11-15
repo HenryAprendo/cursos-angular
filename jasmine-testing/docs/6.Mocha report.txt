@@ -1,0 +1,23 @@
+npm i Mocha Report.
+
+Es un paquete que nos permite leer de una forma mas detallada y organizada el resultado de un test de prueba.
+
+1. Instalación
+ npm i karma-mocha-reporter --save-dev
+
+2. Configuraciones en el karma.conf.js
+
+* Agregamos la dependencia a los plugins:
+    plugins: [
+      require('karma-jasmine'),
+      require('karma-chrome-launcher'),
+      require('karma-jasmine-html-reporter'),
+      require('karma-coverage'),
+      require('@angular-devkit/build-angular/plugins/karma'),
+      require('karma-mocha-reporter')
+    ],
+
+* la propiedad reporter quedaria asi:
+
+reporters: ['mocha'],
+

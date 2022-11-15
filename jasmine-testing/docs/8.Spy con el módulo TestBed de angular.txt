@@ -1,0 +1,33 @@
+describe('MasterService using context TesBed for angular', () => {
+
+  let masterService: MasterService;
+  let valueServiceSpy: jasmine.SpyObj<ValueService>;
+
+  beforeEach(() => {
+    const spy: jasmine.SpyObj<ValueService> = jasmine.createSpyObj('ValueService', ['getValue']);
+
+    TestBed.configureTestingModule({
+      providers: [
+        MasterService,
+        { provide: ValueService, useValue: spy }
+      ]
+    });
+
+    masterService = TestBed.inject(MasterService);
+    valueServiceSpy = TestBed.inject(ValueService) as jasmine.SpyObj<ValueService>;
+  });
+
+  it('should be created', () => {
+    expect(masterService).toBeTruthy();
+  });
+
+  it('should call "getValue" from ValueService', () => {
+
+    valueServiceSpy.getValue.and.returnValue('fake value');
+    valueServiceSpy.getValue();
+
+    expect(valueServiceSpy.getValue).toHaveBeenCalled();
+    expect(valueServiceSpy.getValue).toHaveBeenCalledTimes(1);
+  });
+
+ });

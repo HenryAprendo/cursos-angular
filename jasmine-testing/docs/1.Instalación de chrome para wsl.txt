@@ -1,0 +1,16 @@
+Instalación de Chrome en WSl.
+
+Ubicandonos el en el home ~ de la terminal de ubunto ejecutamos el siguiente comandos.
+
+1. sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove
+
+2. wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt -y install ./google-chrome-stable_current_amd64.deb
+
+3. sudo apt -y install ./google-chrome-stable_current_amd64.deb
+
+4. google-chrome --version
+
+5. En el archivo karma.conf.js configurar browser de la siguiente manera:
+
+browsers: ['ChromeHeadless'],

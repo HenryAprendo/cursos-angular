@@ -1,0 +1,24 @@
+El reporte de covertura no vas a dar una estadistica de forma visual, en la que nos indica que lineas de código no se ejecutaron en la prueba.
+
+hacemos:
+
+ng test --no-watch --code-coverage
+
+
+* Como resultado tendriamos lo siguiente:
+
+Chrome Headless 106.0.5249.103 (Linux x86_64): Executed 7 of 7 SUCCESS (0.461 secs / 0.39 secs)
+TOTAL: 7 SUCCESS
+
+=============================== Coverage summary ===============================
+Statements   : 83.33% ( 5/6 )
+Branches     : 100% ( 1/1 )
+Functions    : 100% ( 2/2 )
+Lines        : 83.33% ( 5/6 )
+================================================================================
+
+
+* En el proyecto, se crea una carpeta coverage con varios archivos, 
+hacemos click derecho en index.html y seleccionamos Reveal in Explorer.
+
+Luego se abre otra carpeta en la cual hacemos click index para abrir en el navegador.

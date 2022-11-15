@@ -1,0 +1,145 @@
+<h2>Form group</h2>
+
+<form [formGroup]="form" (ngSubmit)="save($event)">
+  <p>
+    Name: {{nameField?.value}}
+    <input
+    [class.is-valid]="isNameFieldValid"
+    [class.is-invalid]="isNameFieldInvalid"
+    type="text" formControlName="name"/>
+  </p>
+
+  <div class="messages" [class.active]="isNameFieldInvalid">
+    <p>
+      <strong *ngIf="nameField?.hasError('required')">Este campo es requerido</strong>
+    </p>
+    <p>
+      <strong *ngIf="nameField?.hasError('maxlength')">Limite máximo de 10 caracteres</strong>
+    </p>
+    <p>
+      <strong *ngIf="nameField?.hasError('pattern')">No debe tener caracteres especiales ni numeros</strong>
+    </p>
+  </div>
+
+  <p>
+    Email: {{emailField?.value}}
+    <input type="email" formControlName="email">
+  </p>
+
+  <div class="messages" [class.active]="emailField?.touched && emailField?.invalid">
+    <p>
+      <strong *ngIf="emailField?.hasError('required')">Este campo es requerido</strong>
+    </p>
+
+    <p>
+      <strong *ngIf="emailField?.hasError('email')">Ingresa un email valido</strong>
+    </p>
+  </div>
+
+  <p>
+    Phone: {{phoneField?.value}}
+    <input
+    [class.is-valid]="phoneField?.touched && phoneField?.valid"
+    [class.is-invalid]="phoneField?.touched && phoneField?.invalid"
+    type="tel" formControlName="phone"/>
+  </p>
+
+  <div class="messages" [class.active]="phoneField?.touched && phoneField?.invalid">
+    <p>
+      <strong *ngIf=" phoneField?.touched && phoneField?.hasError('required')">Este campo es requerido</strong>
+    </p>
+  </div>
+
+  <p>
+    Color: {{colorField?.value}}
+    <input type="color" formControlName="color">
+  </p>
+
+  <p>
+    Date: {{dateField?.value}}
+    <input type="date" formControlName="date">
+  </p>
+
+  <p>
+    Age: {{ageField?.value}}
+    <input type="number" formControlName="age">
+  </p>
+  <div class="messages" [class.active]="ageField?.touched && ageField?.invalid">
+    <p>
+      <strong *ngIf="ageField?.hasError('required')">Este campo es requerido</strong>
+    </p>
+    <p>
+      <strong *ngIf="ageField?.hasError('min')">Debe ser mayor de edad </strong>
+    </p>
+    <p>
+      <strong *ngIf="ageField?.hasError('max')">Debe ser menor de 100 años</strong>
+    </p>
+  </div>
+
+
+  <p>
+    Categories(select): {{categoryField?.value}}
+    <select formControlName="category">
+      <option value="category-1">category 1</option>
+      <option value="category-2">category 2</option>
+      <option value="category-3">category 3</option>
+      <option value="category-4">category 4</option>
+    </select>
+  </p>
+
+  <p>
+    Tags: {{tagField?.value}}
+    <select formControlName="tag" multiple>
+      <option value="tag-1">tag 1</option>
+      <option value="tag-2">tag 2</option>
+      <option value="tag-3">tag 3</option>
+      <option value="tag-4">tag 4</option>
+    </select>
+  </p>
+
+  <p>
+    Agree(checkbox): {{agreeField?.value}}
+    <input type="checkbox" formControlName="agree">
+  </p>
+  <div class="messages" [class.active]="agreeField?.touched && agreeField?.invalid">
+    <p>
+      <strong *ngIf="agreeField?.hasError('required')">Acepta los terminos y condiciones</strong>
+    </p>
+  </div>
+
+  <p>
+    Gender(radio): {{genderField?.value}}
+    <label>
+      <input type="radio" name="gender" value="male" formControlName="gender">
+      Male
+    </label>
+    <label>
+      <input type="radio" name="gender" value="female" formControlName="gender">
+      female
+    </label>
+    <label>
+      <input type="radio" name="gender" value="other" formControlName="gender">
+      Other
+    </label>
+  </p>
+
+
+  <!-- agrupando los radios en grupos por la propiedad name -->
+  <p>
+    Zone: {{zoneField?.value}}
+    <label>
+      <input type="radio" name="zone" value="zona-1" formControlName="zone">
+      Zona 1
+    </label>
+    <label>
+      <input type="radio" name="zone" value="zona-2" formControlName="zone">
+      Zona 2
+    </label>
+    <label>
+      <input type="radio" name="zone" value="zona-3" formControlName="zone">
+      Zona 3
+    </label>
+  </p>
+  <button type="submit">Enviar</button>
+  <!-- <button [disabled]="form.invalid" type="submit">Enviar</button> -->
+</form>

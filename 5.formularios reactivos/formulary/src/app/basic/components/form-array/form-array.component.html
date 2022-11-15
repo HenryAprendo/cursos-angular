@@ -1,0 +1,24 @@
+<h2>Datos personales</h2>
+
+<form [formGroup]="form" (ngSubmit)="send()">
+  <label>Name: </label>
+  <input type="text" formControlName="name" placeholder="name">
+
+  <button type="button" (click)="addAddressField()">Add address</button>
+
+  <div formArrayName="address" *ngFor="let address of addressField.controls; let i = index">
+    <div [formGroupName]="i">
+      <div>
+        <label>ZipCode</label>
+        <input type="text" formControlName="zip">
+      </div>
+      <div>
+        <label>Text</label>
+        <input type="text" formControlName="text">
+      </div>
+    </div>
+  </div>
+
+  <button type="submit">Next</button>
+
+</form>

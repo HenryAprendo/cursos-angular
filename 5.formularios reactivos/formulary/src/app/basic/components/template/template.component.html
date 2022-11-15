@@ -1,0 +1,22 @@
+<p>Formulario tipo plantilla con ngModel</p>
+
+<input type="text" id="name" name="name"
+required minlength="3" appForbiddenName="bob"
+[(ngModel)]="myName" #name="ngModel">
+
+<div *ngIf="name.invalid && (name.dirty || name.touched)">
+
+  <div *ngIf="name.errors?.['required']">
+    Name is required
+  </div>
+
+  <div *ngIf="name.errors?.['minlength']">
+    Name must be at least 3 characters long
+  </div>
+
+  <div *ngIf="name.errors?.['forbiddenName']">
+    Name cannot be Bob.
+  </div>
+
+</div>
+

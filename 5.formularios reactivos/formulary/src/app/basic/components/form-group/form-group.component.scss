@@ -1,0 +1,18 @@
+input {
+  outline: none;
+  &.is-valid {
+    border: 2px solid green;
+  }
+
+  &.is-invalid {
+    border: 2px solid red;
+  }
+}
+
+.messages {
+  opacity: 0;
+  transition: all ease-in 1s;
+  &.active {
+    opacity: 1;
+  }
+}

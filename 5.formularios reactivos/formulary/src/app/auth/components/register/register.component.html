@@ -1,0 +1,66 @@
+
+<form [formGroup]="form">
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input placeholder="email" formControlName="email" matInput type="email">
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input placeholder="Password" formControlName="password" matInput type="password">
+      <div *ngIf="isNamePasswordInvalid">
+        <mat-error *ngIf="passwordField?.hasError('invalid_password')">
+          Debe tener un número
+        </mat-error>
+        <mat-error *ngIf="passwordField?.hasError('minlength')">
+          Debe contener mínimo 6 caracteres
+        </mat-error>
+      </div>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Confirm password</mat-label>
+      <input placeholder="password" formControlName="confirmPassword" matInput type="password" >
+      <div *ngIf="form.get('confirmPassword')?.touched && form.errors">
+        <mat-error *ngIf="form.hasError('match_password')">No son iguales</mat-error>
+      </div>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-radio-group formControlName="type" aria-label="Select an option">
+      <mat-radio-button value="company">Company</mat-radio-button>
+      <mat-radio-button value="customer">Customer</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div *ngIf="showCompanyName">
+    <mat-form-field appearance="fill">
+      <mat-label>Company name</mat-label>
+      <input placeholder="company" formControlName="companyName" matInput type="text">
+    </mat-form-field>
+  </div>
+
+  <button type="submit" [disabled]="form.invalid">Register</button>
+
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

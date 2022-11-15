@@ -1,0 +1,6 @@
+1. Instalación 
+
+npm i @faker-js/faker --save-dev
+
+2.Implemetación
+

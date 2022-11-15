@@ -1,0 +1,6 @@
+Para correr una prueba especifica dentro de un conjunto de pruebas,
+antes de la sentencia describe colocamos la letra f.
+
+fdescribe('test de example', () => {
+	....it
+})

@@ -1,0 +1,74 @@
+<h2>Grupos anidados</h2>
+
+<form [formGroup]="form">
+
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" formControlName="email">
+    <mat-icon *ngIf="isEmailFieldValid" matSuffix>done</mat-icon>
+    <mat-icon *ngIf="isEmailFieldInvalid" matSuffix>close</mat-icon>
+  </mat-form-field>
+  <div class="messages" [class.active]="emailField?.touched && emailField?.invalid">
+    <mat-error *ngIf="emailField?.hasError('required')">Campo requerido</mat-error>
+  </div>
+
+  <div formGroupName="fullName">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" formControlName="name">
+      <mat-icon *ngIf="isNameFieldValid"  matSuffix>done</mat-icon>
+      <mat-icon *ngIf="isNameFieldInvalid" matSuffix>close</mat-icon>
+      <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon> -->
+    </mat-form-field>
+
+    <div class="messages" [class.active]="nameField?.touched && nameField?.invalid">
+      <mat-error *ngIf="nameField?.hasError('required')">El campo es requerido</mat-error>
+      <mat-error *ngIf="nameField?.hasError('minlength')">Minimo 5 caracteres</mat-error>
+      <mat-error *ngIf="nameField?.hasError('maxlength')">Máximo 30 caracteres</mat-error>
+    </div>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Last</mat-label>
+      <input matInput type="text" formControlName="last">
+      <mat-icon *ngIf="isLastFieldValid" matSuffix>done</mat-icon>
+      <mat-icon *ngIf="isLastFieldInvalid" matSuffix>close</mat-icon>
+      <mat-error *ngIf="lastField?.touched && lastField?.invalid" >
+        <ng-container *ngIf="lastField?.hasError('required')">El campo es requerido</ng-container>
+      </mat-error>
+    </mat-form-field>
+
+    <div class="messages"  [class.active]="lastField?.touched && lastField?.invalid">
+
+    </div>
+
+  </div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>My favorite food</mat-label>
+    <mat-select formControlName="food">
+      <mat-option *ngFor="let food of foods" [value]="food.value">
+        {{food.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
